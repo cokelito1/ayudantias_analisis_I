@@ -1,0 +1,125 @@
+\documentclass[a4paper,oneside,10.5pt]{USMArt}
+
+\usepackage{personal}
+\usepackage{comment}
+\usepackage[letterpaper]{geometry}
+
+\title{Ayudantía 1 - Analisis I}
+\sigla{MAT-225 }
+\ramo{Analisis I}
+\profesor{Alberto Mercado}
+\semestre{2025-1}
+\author{Jorge Bravo}
+
+\begin{document}
+\maketitle
+
+\begin{prob}
+  Sea $(X, d)$ un espacio métrico. Pruebe que dado un conjunto $A \subset X$, $\inte A$ es el conjunto abierto mas grande contenido en $A$. Es decir
+  \begin{equation*}
+    \theta \subset A \text{ y } A \text{ abierto } \implies \theta \subset \inte A
+  \end{equation*}
+
+  Pruebe un resultado análogo para $\overline{A}$.
+\end{prob}
+
+\begin{comment}
+\begin{sol}
+  Sea $A \subset X$ y $\theta \subset A$ abierto. Veamos que $\theta \subset \inte A$, sea $x \in \theta$, dado que $\theta$ es abierto, existe $\epsilon > 0$ de tal forma que
+  \begin{equation*}
+    B(x, \epsilon) \subset \theta \subset A
+  \end{equation*}
+
+  Por lo tanto $x \in \inte A$. Es decir $\theta \subset \inte A$.
+  \newline
+
+  Sea $A \subset X$ y $A \subset C$ cerrado. Veamos que $\overline{A} \subset C$. Sea $x \in \overline{A}$, luego dado $\epsilon > 0$, sabemos que $A \cap B(x, \epsilon) \neq \emptyset \implies C \cap B(x, \epsilon)$. Por lo tanto $x \in \overline{C}$, dado que $C$ es cerrado tenemos que $C = \overline{C}$ y luego $x \in C$.
+  Es decir $\overline{A} \subset C$
+\end{sol}
+\end{comment}
+
+\begin{prob}
+  Considere el siguiente conjunto
+  \begin{equation*}
+    \mathcal{C}([0, 1]) = \{f : [0, 1] \to \RR \; | \; f \text{ es continua }\}
+  \end{equation*}
+
+  Además considere la función
+  \begin{gather*}
+    d : \mathcal{C}([0, 1]) \times \mathcal{C}([0, 1]) \to \RR\\
+    (f, g) \mapsto \sup_{x \in [0, 1]} |f(x) - g(x)|
+  \end{gather*}
+
+  Muestre que $d$ esta bien definida y $(\mathcal{C}([0, 1]), d)$ es un espacio métrico.
+\end{prob}
+
+\begin{comment}
+\begin{sol}
+  Notemos que si $(f, g) \in \mathcal{C}([0, 1]) \times \mathcal{C}([0, 1])$, entonces $f + g \in \mathcal{C}([0, 1])$ y la función $h(x) = |f(x) + g(x)|$ es continua. Dado que $[0, 1]$ es un compacto de $\RR$, sabemos que $h([0, 1])$ es compacto y por tanto acotado. Por axioma del supremo, la función $d$ esta bien definida.
+  \newline
+
+  Verifiquemos que es un espacio métrico. Sean $f, g \in \mathcal{C}([0, 1])$ tal que
+  \begin{equation*}
+    d(f, g) = 0
+  \end{equation*}
+
+  Luego tenemos que dado $x \in [0, 1]$
+  \begin{equation*}
+    0 \leq |f(x) - g(x)| \leq \sup_{x \in [0, 1]} |f(x) - g(x)| = 0
+  \end{equation*}
+
+  Por lo tanto $|f(x) - g(x)| = 0 \implies f(x) = g(x)$. Es decir $f = g$
+  \newline
+
+  Verifiquemos la simetría de la métrica, Sean $f, g \in \mathcal{C}[0, 1]$. Notemos que
+  \begin{equation*}
+    d(f, g) = \sup_{x \in [0, 1]} |f(x) - g(x)| = \sup_{x \in [0, 1]} |g(x) - f(x)| = d(g, f)
+  \end{equation*}
+
+  Por ultimo nos falta verificar la desigualdad triangular. Sean $f, g, h \in \mathcal{C}([0, 1])$, luego tenemos que
+  \begin{align*}
+    d(f, h) &= \sup_{x \in [0, 1]} |f(x) - h(x)|\\
+            &= \sup_{x \in [0, 1]} |f(x) - g(x) + g(x) - h(x)|\\
+            &\leq \sup_{x \in [0, 1]} |f(x) - g(x)| + |g(x) - h(x)|\\
+            &\leq \sup_{x \in [0, 1]} |f(x) - g(x)| + \sup_{x \in [0, 1]} |g(x) - h(x)|\\
+            &= d(f, g) + d(g, h)
+  \end{align*}
+
+  Por lo tanto $(\mathcal{C}([0, 1]), d)$ es un espacio métrico.
+\end{sol}
+\end{comment}
+
+\begin{prob}
+  Sea $(X, d)$ un espacio métrico. Muestre que $\theta \subset X$ es abierto $\iff X \setminus \theta$ es cerrado.
+\end{prob}
+
+\begin{comment}
+\begin{sol}
+  Supongamos que $\theta \subset X$ es abierto. Veamos que $X \setminus \theta$ es cerrado. Sea $x \in \overline{X \setminus \theta}$ y $\epsilon > 0$, luego $B(x, \epsilon) \cap (X \setminus \theta) \neq \emptyset$, por lo tanto $x \notin \theta$, pues si estuviera en $\theta$ existiría $\epsilon_{0} > 0$ tal que $B(x, \epsilon_{0}) \cap X \setminus \theta \neq \emptyset$ y $B(x, \epsilon_{0}) \subset \theta$. Es decir $\overline{X \setminus \theta} \subset X \setminus \theta$. La otra inclusión viene de una proposición de clases y por lo tanto es cerrado.
+  \newline
+
+  Supongamos que $X \setminus \theta \subset X$ es cerrado, veamos que $\theta$ es abierto. Sea $x \in \theta$, si suponemos que para todo $\varepsilon > 0$, $B(x, \varepsilon)$ no esta contenido en $\theta$, esto significa que $B(x, \varepsilon) \cap \theta \neq \emptyset$, dado que se cumpliría para todo $\varepsilon$, esto implica que $x \in \overline{X \setminus \theta} = X \setminus \theta$, contradicción.
+  Por lo tanto $\theta$ es abierto.
+\end{sol}
+\end{comment}
+
+\begin{prob}
+  Sea $(X, d)$ un espacio métrico. Suponga que $A \subset B \subset X$. Muestre que
+  $\inte A \subset \inte B$ y $\overline{A} \subset \overline{B}$
+\end{prob}
+\begin{comment}
+\begin{sol}
+  Mostremos que $\inte A \subset \inte B$. Sea $x \in \inte A$, luego existe $\varepsilon > 0$ de tal forma que $B(x, \varepsilon) \subset A \subset B$. Por lo tanto $x \in \inte B$, es decir $\inte A \subset \inte B$.
+  \newline
+
+  Mostremos que $\overline{A} \subset \overline{B}$. Sea $x \in \overline{A}$, luego para todo $\varepsilon > 0$, $B(x, \varepsilon) \cap A \neq \emptyset$, dado que $A \subset B \implies B(x, \varepsilon) \cap A \subset B(x, \varepsilon) \cap B$ y por lo tanto
+  \begin{equation*}
+    B(x, \varepsilon) \cap B \neq \emptyset
+  \end{equation*}
+
+  Es decir $x \in \overline{B}$. Por lo tanto $\overline{A} \subset \overline{B}$
+\end{sol}
+\end{comment}
+  %
+
+\end{document}
