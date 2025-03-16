@@ -23,7 +23,6 @@
   Pruebe un resultado análogo para $\overline{A}$.
 \end{prob}
 
-\begin{comment}
 \begin{sol}
   Sea $A \subset X$ y $\theta \subset A$ abierto. Veamos que $\theta \subset \inte A$, sea $x \in \theta$, dado que $\theta$ es abierto, existe $\epsilon > 0$ de tal forma que
   \begin{equation*}
@@ -36,7 +35,6 @@
   Sea $A \subset X$ y $A \subset C$ cerrado. Veamos que $\overline{A} \subset C$. Sea $x \in \overline{A}$, luego dado $\epsilon > 0$, sabemos que $A \cap B(x, \epsilon) \neq \emptyset \implies C \cap B(x, \epsilon)$. Por lo tanto $x \in \overline{C}$, dado que $C$ es cerrado tenemos que $C = \overline{C}$ y luego $x \in C$.
   Es decir $\overline{A} \subset C$
 \end{sol}
-\end{comment}
 
 \begin{prob}
   Considere el siguiente conjunto
@@ -53,7 +51,6 @@
   Muestre que $d$ esta bien definida y $(\mathcal{C}([0, 1]), d)$ es un espacio métrico.
 \end{prob}
 
-\begin{comment}
 \begin{sol}
   Notemos que si $(f, g) \in \mathcal{C}([0, 1]) \times \mathcal{C}([0, 1])$, entonces $f + g \in \mathcal{C}([0, 1])$ y la función $h(x) = |f(x) + g(x)|$ es continua. Dado que $[0, 1]$ es un compacto de $\RR$, sabemos que $h([0, 1])$ es compacto y por tanto acotado. Por axioma del supremo, la función $d$ esta bien definida.
   \newline
@@ -87,13 +84,11 @@
 
   Por lo tanto $(\mathcal{C}([0, 1]), d)$ es un espacio métrico.
 \end{sol}
-\end{comment}
 
 \begin{prob}
   Sea $(X, d)$ un espacio métrico. Muestre que $\theta \subset X$ es abierto $\iff X \setminus \theta$ es cerrado.
 \end{prob}
 
-\begin{comment}
 \begin{sol}
   Supongamos que $\theta \subset X$ es abierto. Veamos que $X \setminus \theta$ es cerrado. Sea $x \in \overline{X \setminus \theta}$ y $\epsilon > 0$, luego $B(x, \epsilon) \cap (X \setminus \theta) \neq \emptyset$, por lo tanto $x \notin \theta$, pues si estuviera en $\theta$ existiría $\epsilon_{0} > 0$ tal que $B(x, \epsilon_{0}) \cap X \setminus \theta \neq \emptyset$ y $B(x, \epsilon_{0}) \subset \theta$. Es decir $\overline{X \setminus \theta} \subset X \setminus \theta$. La otra inclusión viene de una proposición de clases y por lo tanto es cerrado.
   \newline
@@ -101,25 +96,86 @@
   Supongamos que $X \setminus \theta \subset X$ es cerrado, veamos que $\theta$ es abierto. Sea $x \in \theta$, si suponemos que para todo $\varepsilon > 0$, $B(x, \varepsilon)$ no esta contenido en $\theta$, esto significa que $B(x, \varepsilon) \cap \theta \neq \emptyset$, dado que se cumpliría para todo $\varepsilon$, esto implica que $x \in \overline{X \setminus \theta} = X \setminus \theta$, contradicción.
   Por lo tanto $\theta$ es abierto.
 \end{sol}
-\end{comment}
 
 \begin{prob}
   Sea $(X, d)$ un espacio métrico. Suponga que $A \subset B \subset X$. Muestre que
   $\inte A \subset \inte B$ y $\overline{A} \subset \overline{B}$
 \end{prob}
-\begin{comment}
+
+%
 \begin{sol}
-  Mostremos que $\inte A \subset \inte B$. Sea $x \in \inte A$, luego existe $\varepsilon > 0$ de tal forma que $B(x, \varepsilon) \subset A \subset B$. Por lo tanto $x \in \inte B$, es decir $\inte A \subset \inte B$.
+  Mostremos que $\inte A \subset \inte B$.
+  Sea $x \in \inte A$, luego existe $\varepsilon > 0$ de tal forma que $B(x, \varepsilon) \subset A \subset B$.
+  Por lo tanto $x \in \inte B$, es decir $\inte A \subset \inte B$.
   \newline
 
-  Mostremos que $\overline{A} \subset \overline{B}$. Sea $x \in \overline{A}$, luego para todo $\varepsilon > 0$, $B(x, \varepsilon) \cap A \neq \emptyset$, dado que $A \subset B \implies B(x, \varepsilon) \cap A \subset B(x, \varepsilon) \cap B$ y por lo tanto
+  Mostremos que $\overline{A} \subset \overline{B}$.
+  Sea $x \in \overline{A}$, luego para todo $\varepsilon > 0$, $B(x, \varepsilon) \cap A \neq \emptyset$,
+  dado que $A \subset B \implies B(x, \varepsilon) \cap A \subset B(x, \varepsilon) \cap B$ y por lo tanto
+
   \begin{equation*}
     B(x, \varepsilon) \cap B \neq \emptyset
   \end{equation*}
 
   Es decir $x \in \overline{B}$. Por lo tanto $\overline{A} \subset \overline{B}$
 \end{sol}
-\end{comment}
-  %
+
+\begin{prob}
+  Sea $E$ un $\RR$ espacio vectorial. Muestre que una métrica $d$ sobre $E$ proviene de una norma $|| \cdot ||_{d}$ si y solo si la métrica cumple que
+  \begin{enumerate}
+    \item Para todo $v, w \in E$ y $\lambda \in \RR$, $d(\lambda x, \lambda y) = |\lambda| d(x, y)$
+    \item Para todo $v, w, a \in E$, se tiene que $d(v + a, w + a) = d(v, w)$
+  \end{enumerate}
+\end{prob}
+
+\begin{sol}
+  $(\implies)$ Supongamos que $d$ proviene de una métrica, es decir existe una norma $||\cdot||_{d}$ sobre $E$
+  de tal forma que
+  \begin{equation*}
+    d(v, w) = ||v - w||_{d}
+  \end{equation*}
+
+  Verifiquemos que se cumple la propiedad $1$ y $2$. Sea $v, w \in E$ y $\lambda \in \RR$, luego tenemos que
+  \begin{equation*}
+    d(\lambda v, \lambda w) = ||\lambda v - \lambda w||_{d} = ||\lambda(v - w)||_{d} = |\lambda| \cdot ||v - w||_{d} = |\lambda| d(v, w)
+  \end{equation*}
+
+  Ahora sean $v, w, a \in E$, entonces tenemos que
+  \begin{equation*}
+    d(v + a, w + a) = ||(v + a) - (w + a)||_{d} = ||v - w||_{d} = d(v, w)
+  \end{equation*}
+
+  $(\Longleftarrow)$ Supongamos que $d$ es una métrica que cumple las propiedades $1$ y $2$, verifiquemos que esta
+  proviene de una norma. Consideremos la siguiente funci\'on
+  \begin{equation*}
+    ||v||_{d} = d(0, v)
+  \end{equation*}
+
+  Verifiquemos que en efecto es una norma y la métrica inducida por esta es $d$. Notemos que para todo $v \in E$ se tiene que $||v||_{d} = d(0, v) \geq 0$. Notemos que $||v||_{d} = 0 \iff d(0, v) = 0 \iff v = 0$.
+  Sea $\lambda \in \RR$ y $v \in E$, luego tenemos que
+  \begin{equation*}
+    ||\lambda v|| = d(0, \lambda v) = d(\lambda 0, \lambda v) = |\lambda| d(0, v) = |\lambda| \cdot ||v||_{d}
+  \end{equation*}
+
+  Por ultimo veamos que se cumple la desigualdad triangular, sean $v, w \in E$, luego tenemos que
+  \begin{align*}
+    ||v + w||_{d} &= d(0, v + w)\\
+                  &= d(-w + w, v + w)\\
+                  &= d(-w, v)\\
+                  &\leq d(-w, 0) + d(0, v)\\
+                  &= d(0 - w, w - w) + d(0, v)\\
+                  &=  d(0, w) + d(0, v)\\
+                  &= ||v||_{d} + ||w||_{d}
+  \end{align*}
+
+  Por lo tanto $|| \cdot ||_{d}$ es una norma.
+
+  Veamos que la métrica inducida por $|| \cdot ||_{d}$ es $d$
+  \begin{equation*}
+    ||v - w|| = d(0, v - w) = d(w - w, v - w) = d(w, v) = d(v, w)
+  \end{equation*}
+
+  Por lo tanto $d$ provenia de una norma.
+\end{sol}
 
 \end{document}
