@@ -1,0 +1,420 @@
+\documentclass[a4paper,oneside,10.5pt]{USMArt}
+
+\usepackage{personal}
+\usepackage{comment}
+
+\usepackage{biblatex}
+\addbibresource{bibliografia.bib}
+\nocite{*}
+
+\usepackage[letterpaper, left=2cm, right=2cm]{geometry}
+
+\title{Ayudantía 2 - Analisis I}
+\sigla{MAT-225 }
+\ramo{Analisis I}
+\profesor{Alberto Mercado}
+\semestre{2025-1}
+\author{Jorge Bravo}
+
+\begin{document}
+
+\maketitle
+
+\begin{prob}
+  Muestre que $\mathcal{C}([0, 1])$ no es completo con la metrica inducida por la norma
+  \begin{equation*}
+    ||f|| = \sqrt{\int_{0}^{1} f(x)^{2} dx}
+  \end{equation*}
+\end{prob}
+
+\begin{sol}
+  Consideremos la sucesion de funciones definida por
+  \begin{gather*}
+    f_{n} : [0, 1] \to \RR\\
+    x \mapsto \begin{cases}
+      0 & \text{ si } x \in [0, \frac{1}{2} - \frac{1}{n}]\\
+      n(x - (\frac{1}{2} - \frac{1}{n})) & x \in (\frac{1}{2} - \frac{1}{n}, \frac{1}{2})\\
+      1 & \text{ si } x \in [\frac{1}{2}, 1]
+        \end{cases}
+  \end{gather*}
+
+  Veamos que esta sucesion es de Cauchy, supongamos sin perdida de generalidad que $n < m$
+  \begin{align*}
+    ||f_{n} - f_{m}||^{2} &= \int_{0}^{1} (f_{n} - f_{m})(x)^{2} dx\\
+                          &= \int_{\frac{1}{2} - \frac{1}{n}}^{\frac{1}{2} - \frac{1}{m}} n^{2}(x - (\frac{1}{2} - \frac{1}{n}))^{2} dx + \int_{\frac{1}{2} - \frac{1}{m}}^{\frac{1}{2}} (n(x - (\frac{1}{2} - \frac{1}{n})) - m(x - (\frac{1}{2} - \frac{1}{m})))^{2} dx\\
+                          &\leq \frac{n^{2}}{3}(x - (\frac{1}{2} - \frac{1}{n}))^{3}|_{\frac{1}{2} - \frac{1}{n}}^{\frac{1}{2} - \frac{1}{m}} + \frac{1}{m} \cdot \max_{x \in [\frac{1}{2} - \frac{1}{m}, \frac{1}{2}]} (n(x - (\frac{1}{2} - \frac{1}{n})) - m(x - (\frac{1}{2} - \frac{1}{m})))^{2}
+  \end{align*}
+
+  Al calcular la derivada de la funcion dentro del maximo obtenemos
+  \begin{equation*}
+    2(n(x - (\frac12 - \frac{1}{n})) - m(x - (\frac{1}{2} - \frac{1}{m}))) \cdot (n - m)
+  \end{equation*}
+
+  Notemos que el factor de la derecha es negativo, mientras que el factor de la izquierda es una recta que vale $0$ en
+  $\frac{1}{2}$ y que en $0$ vale $2(1 - \frac{n}{2} + \frac{m}{2} - 1) = m - n$ que es positivo. Por lo tanto la recta
+  tiene pendiente negativa y dado que en $\frac{1}{2}$ vale $0$, tenemos que en $[\frac{1}{2} - \frac{1}{m}, \frac{1}{2}]$ es positiva, por lo tanto la funcion dentro del maximo es decreciente y podemos evaluar en el extremo
+  izquierdo para obtener el maximo
+
+  \begin{align*}
+    ||f_{n} - f_{m}||^{2} &\leq \frac{n^{2}}{3}(\frac{1}{n} - \frac{1}{m})^{3} + \frac{1}{m} \cdot (n(\frac{1}{n} - \frac{1}{m}))^{2}\\
+                          &= \frac{n^{2}}{3}(\frac{1}{n} - \frac{1}{m})^{3} + \frac{1}{m} \cdot (1 - \frac{n}{m})^{2}\\
+                          &= \frac{n^{2}}{3}(\frac{1}{n} - \frac{1}{m})^{3} + \frac{1}{m} \cdot \frac{(m - n)^{2}}{m^{2}}\\
+                          &\leq \frac{n^{2}}{3n^{3}} + \frac{1}{m}\\
+                          &= \frac{3}{n} + \frac{1}{m} \to 0
+  \end{align*}
+\end{sol}
+
+Por lo tanto tenemos que es de Cauchy. Veamos que no puede converger dentro del espacio. Supongamos que existe $f \in \mathcal{C}([0, 1])$ tal que $f_{n} \to f$, luego tenemos que
+\begin{equation*}
+  ||f_{n} - f||^{2} \to 0
+\end{equation*}
+
+En particular, tenemos que
+\begin{equation*}
+  \int_{0}^{\frac{1}{2} - \frac{1}{n}} f(x)^{2} dx + \int_{\frac{1}{2} - \frac{1}{n}}^{\frac{1}{2}} (f(x) - f_{n}(x))^{2} dx + \int_{\frac{1}{2}}^{1}(f(x) - 1)^{2} dx = 0
+\end{equation*}
+
+Dado que son números positivos las 3 integrales, cada una por separado tienen que irse a $0$. De la ultima integral
+obtenemos que $f(x)|_{[\frac{1}{2}, 1]} \equiv 1$, por la continuidad de $f$.
+
+Notemos que del teorema fundamental del calculo, la funcion definida por
+\begin{equation*}
+  y \mapsto \int_{0}^{\frac{1}{2} - y} f(x)^{2} dx
+\end{equation*}
+
+Es diferenciable, en particular continua. Por lo tanto
+\begin{equation*}
+  \lim_{n \to \infty} \int_{0}^{\frac{1}{2} - \frac{1}{n}} f(x)^{2} dx = 0 \implies \int_{0}^{\frac{1}{2}} f(x)^{2} dx = 0
+\end{equation*}
+
+Por lo tanto $f(x)|_{[0, \frac{1}{2}]} \equiv 0$, esto es una contradiccion pues entonces la funcion $f$ tiene que tomar
+$2$ valores en $\frac{1}{2}$.
+
+\newpage
+
+El objetivo de esta ayudantía es explorar todos los conceptos que se han introducido en el curso hasta el
+momento. Esto lo haremos investigando los números p-adicos los cuales forman un espacio (ultra)-métrico
+con varias propiedades poco intuitivas.
+
+\begin{defi}{(Valor absoluto)}
+  Sea $A$ un dominio integral, decimos que $|\cdot| : A \to \RR$ es valor absoluto sobre $A$ si cumple
+  \begin{enumerate}
+    \item $|x| \geq 0$
+    \item $|x| = 0 \iff x = 0$
+    \item $|xy| = |x| \cdot |y|$
+    \item $|x + y| \leq |x| + |y|$
+  \end{enumerate}
+\end{defi}
+
+\begin{obs}
+  En nuestro caso el anillo (cuerpo) sobre el que trabajaremos sera $\QQ$, por lo que podemos reemplazar eso en la
+  definición si no sabe lo que es un dominio integral.
+\end{obs}
+
+\begin{teo}
+  Sea $|\cdot|$ un valor absoluto sobre $A$, luego
+
+  \begin{gather*}
+    d : A \times A \to \RR\\
+    (x, y) \mapsto |x - y|
+  \end{gather*}
+
+  es una metrica
+\end{teo}
+\begin{proof}
+  Similar a la demotraci\'on que una norma induce una métrica
+\end{proof}
+
+\begin{defi}{(Valuación p-adica sobre $\ZZ$)}
+  Sea $p$ un numero primo, definimos la valuación p-adica sobre $\ZZ$ como la funci\'on
+  \begin{gather*}
+    v_{p} : \ZZ \to \ZZ \cup \{\infty\}\\
+    n \mapsto v_{p}(n)
+  \end{gather*}
+
+  Donde $v_{p}(n)$ cumple que $x = p^{v_{p}(n)}x' $ y $v_{p}(n)$ no divide a x'. Definimos $v_{p}(0) = \infty$
+\end{defi}
+\begin{obs}
+  La valuaci\'on p-adica nos dice que tan divisible es $x$ por $p$.
+\end{obs}
+
+\begin{ejemplo}
+  Sea $p = 2$, luego tenemos que
+  \begin{gather*}
+    v_{p}(8) = 3\\
+    v_{p}(9) = 0\\
+    v_{p}(10) = 1
+  \end{gather*}
+\end{ejemplo}
+
+\begin{prop}
+  Sea $a, b \in \ZZ$, entonces
+  \begin{equation*}
+    v_{p}(ab) = v_{p}(a) + v_{p}(b)
+  \end{equation*}
+\end{prop}
+
+\begin{proof}
+  Notemos que el resultado es trivial si $a$ o $b$ son $0$. Sean $a, b \in \ZZ^{>0}$, luego tenemos que
+  \begin{gather*}
+    a = p^{v_{p}(a)}a'\\
+    b = p^{v_{p}(b)}b'
+  \end{gather*}
+
+  Por lo tanto
+  \begin{equation*}
+    ab = p^{v_{p}(a) + v_{p}(b)}a'b'
+  \end{equation*}
+
+  Dado que $p$ no divide a $a'$ ni a $b'$, entonces no divide a $a'b'$.
+  Con lo que tenemos
+
+  \begin{equation*}
+    v_{p}(ab) = v_{p}(a) + v_{p}(b)
+  \end{equation*}
+\end{proof}
+
+\begin{defi}{(Valuaci\'on p-adica sobre $\QQ$)}
+  Sea $p$ un primo, definimos la valuaci\'on p-adica sobre $\QQ$ como
+  \begin{gather*}
+    v_{p} : \QQ \to \ZZ \cup \{\infty\}\\
+    \frac{a}{b} \mapsto v_{p}(a) - v_{p}(b)
+  \end{gather*}
+\end{defi}
+
+\begin{prop}
+  La valuaci\'on p-adica sobre $\QQ$ esta bien definida
+\end{prop}
+\begin{proof}
+  Supongamos que $\frac{a}{b} = \frac{c}{d}$ con $a, b \neq 0$, luego notemos que $ad = bc$, entonces
+  \begin{equation*}
+    v_{p}(a) + v_{p}(d) = v_{p}(ad) = v_{p}(bc) = v_{p}(b) + v_{p}(c)
+  \end{equation*}
+
+  Por lo tanto
+  \begin{equation*}
+    v_{p}(a) - v_{p}(b) = v_{p}(c) - v_{p}(d)
+  \end{equation*}
+\end{proof}
+
+\begin{prop}
+  Sea $\frac{a}{b}, \frac{c}{d} \in \QQ$, entonces $v_{p}(\frac{ac}{bd}) = v_{p}(\frac{a}{b}) + v_{p}(\frac{c}{d})$
+\end{prop}
+\begin{proof}
+  Notemos que
+  \begin{equation*}
+    v_{p}(\frac{ac}{bd}) = v_{p}(ac) - v_{p}(bd) = v_{p}(a) + v_{p}(c) - v_{p}(b) - v_{p}(d) = v_{p}(\frac{a}{c}) + v_{p}(\frac{b}{d})
+  \end{equation*}
+\end{proof}
+
+\begin{prop}
+  Sea $n, m \in \ZZ$, entonces tenemos que
+  \begin{equation*}
+    v_{p}(n + m) \geq \min \{v_{p}(n), v_{p}(m)\}
+  \end{equation*}
+\end{prop}
+
+\begin{proof}
+  Si $n + m = 0$ el resultado es trivial, al igual que si $n$ o $m$ son $0$. Por lo tanto supongamos que
+  $n + m \neq 0, n \neq 0, m \neq 0$. Por lo tanto tenemos que
+  \begin{align*}
+    n &= p^{v_{p}(n)}n'\\
+    m &= p^{v_{p}(m)}m'
+  \end{align*}
+
+  Sea $v = \min \{v_{p}(n), v_{p}(m)\}$. Luego se tiene que
+  \begin{equation*}
+    n + m = p^{v_{p}(n)}n' + p^{v_{p}(m)}m' = p^{v}(p^{v_{p}(n) - v}n' + p^{v_{p}(m) - v}m')
+  \end{equation*}
+
+  Por lo tanto se tiene el resultado, pues si $p^{v_{p}(n) - v}n' + p^{v_{p}(m) - v}m'$ no es divisble por $p$ tenemos
+  que $v_{p}(n + m) = v$, si $p^{v_{p}(n) - v}n' + p^{v_{p}(m) - v}m'$ es divisble por $p$, entonces al factorizar esos
+  $p$, tendremos que $v_{p}(n + m) > v$.
+\end{proof}
+
+\begin{prop}
+  Sea $\frac{a}{b}, \frac{c}{d} \in \QQ$, entonces
+  \begin{equation*}
+    v_{p}(\frac{a}{b} + \frac{c}{d}) \geq \min \{v_{p}(\frac{a}{b}), v_{p}(\frac{c}{d})\}
+  \end{equation*}
+\end{prop}
+\begin{proof}
+  El caso en que $\frac{a}{b} + \frac{c}{d} = 0$ es trivial, por lo tanto supondremos
+  que $\frac{a}{b} + \frac{c}{d} \neq 0$. Supongamos además que $v_{p}(\frac{a}{b}) \leq v_{p}(\frac{c}{d})$,
+  luego $\frac{a}{b} < \infty$, pues si fuera $\infty$ tendríamos $\frac{a}{b} + \frac{c}{d} = 0$, si $\frac{c}{d} = 0$ entonces
+  el resultado es trivial por lo tanto supondremos $\frac{c}{d} \neq 0$.
+
+  Notemos que
+  \begin{equation*}
+    v_{p}(\frac{a}{b} + \frac{c}{d}) = v_{p}(\frac{ad + bc}{bd}) = v_{p}(ad + bc) - v_{p}(bd)
+  \end{equation*}
+
+  Por la proposición anterior $v_{p}(ad + bc) \geq \min \{v_{p}(ad), v_{p}(bc)\}$ supongamos que el mínimo es $v_{p}(ad)$,
+  entonces tenemos
+  \begin{equation*}
+    v_{p}(\frac{a}{b} + \frac{c}{d}) \geq v_{p}(ad) - v_{p}(bd) = v_{p}(a) + v_{p}(d) - v_{p}(b) - v_{p}(d) = v_{p}(\frac{a}{b})
+  \end{equation*}
+
+  Si el minimo es $v_{p}(bc)$ entonces tenemos que
+  \begin{equation*}
+    v_{p}(\frac{a}{b} + \frac{c}{d}) \geq v_{p}(bc) - v_{p}(bd) = v_{p}(b) + v_{p}(c) - v_{p}(b) -v_{p}(d) = v_{p}(\frac{c}{d}) \geq v_{p}(\frac{a}{b})
+  \end{equation*}
+
+  Por lo que se tiene el resultado.
+\end{proof}
+
+\begin{defi}
+  Sea $p$ un primo, Se define el valor absoluto p-adico sobre $\QQ$ como
+  \begin{equation*}
+    |x|_{p} = \begin{cases}
+      p^{-v_{p}(x)} & \text{ si } x \neq 0\\
+      0 & \text{ si } x = 0
+      \end{cases}
+  \end{equation*}
+\end{defi}
+
+\begin{prop}
+  El valor absoluto p-adico es un valor absoluto sobre $\QQ$.
+\end{prop}
+
+\begin{proof}
+  Las 2 primeras condiciones son directas de la definici\'on, veamos la condición $3$.
+  Si $x = 0$ o $y = 0$ el resultado es trivial. Sea $x, y \in \QQ$ luego tenemos que
+  \begin{equation*}
+    |xy|_{p} = p^{-v_{p}(xy)} = p^{-v_{p}(x) - v_{p}(y)} = p^{-v_{p}(x)}p^{-v_{p}(y)} = |x|_{p} \cdot |y|_{p}
+  \end{equation*}
+
+  Ahora demostraremos algo mas fuerte que la desigualdad triangular usual, mostraremos que
+  \begin{equation*}
+    |x + y|_{p} \leq \max \{|x|_{p}, |y|_{p}\}
+  \end{equation*}
+
+  Si $x + y = 0$ el resultado es trivial. Por lo tanto supongamos que $x + y \neq 0$, sin perdida de generalidad
+  supondremos que $|x|_{p} \geq |y|_{p}$, se sigue de esto que $x \neq 0$. Dado que
+  $p^{-v_{p}(x)} = |x|_{p} \geq |y|_{p} = p^{-v_{p}(y)}$ se tiene que $v_{p}(x) \leq v_{p}(y)$. De la proposición $5$
+  tenemos que $v_{p}(x + y) \geq \min \{v_{p}(x), v_{p}(y)\} = v_{p}(x)$, por lo tanto tenemos que
+  \begin{equation*}
+    p^{-v_{p}(x + y)} \leq p^{-v_{p}(x)}
+  \end{equation*}
+  Con lo que se tiene el resultado pues $\max \{|x|_{p}, |y|_{p}\} = |x|_{p}$.
+\end{proof}
+
+\begin{obs}
+  Dado que tenemos un valor absoluto sobre $\QQ$, este define una métrica, analizaremos como es esta métrica
+\end{obs}
+
+\begin{ejemplo}
+  Calculemos $|\frac{75}{73}|_{5}$, notemos que
+  \begin{equation*}
+    v_{p}(\frac{75}{73}) = v_{p}(75) - v_{p}(73) = v_{p}(5^{2}\cdot3) - v_{p}(73) = 2
+  \end{equation*}
+
+  Pues 73 es primo. Luego $|\frac{75}{73}|_{5} = 5^{-2} = \frac{1}{25}$
+\end{ejemplo}
+
+\begin{ejemplo}
+  Calculemos $d_{11}(89, 4082)$ donde $d_{11}$ es la métrica inducida por $|\cdot|_{11}$
+  \begin{equation*}
+    d_{11}(89, 4082) = |4082 - 89|_{11} = |3993|_{11} = |11^{3} \cdot 3|_{11} = 11^{-3}
+  \end{equation*}
+\end{ejemplo}
+
+\begin{prop}
+  Sea $\QQ$ con la métrica inducida por $|\cdot|_{p}$, entonces
+  \begin{equation*}
+    \lim_{n \to \infty} p^{n} = 0
+  \end{equation*}
+\end{prop}
+
+\begin{proof}
+  Calculemos $d(p^{n}, 0)$
+  \begin{equation*}
+    d(p^{n}, 0) = |p^{n}|_{p} = p^{-n}
+  \end{equation*}
+
+  Dado que $p^{-n} \to 0$ en $\RR$, tenemos el resultado.
+\end{proof}
+\begin{obs}
+  En algún sentido la sucesión $p^{n}$ en $\QQ$ con esta métrica se parece a la sucesión $\frac{1}{n}$ en $\RR$,
+  pues ambas son sucesiones de términos positivos que se acercan a $0$.
+\end{obs}
+
+\begin{obs}
+  Tal como al completar $\QQ$ con la métrica usual se obtiene $\RR$, se puede completar $\QQ$ con la métrica p-adica y
+  se obtienen los espacios métricos $\QQ_{p}$ los cuales son completos y $\QQ$ son densos en el. Esto se
+  hace mediante un proceso llamado completacion que veremos en otra ayudantía. Por lo tanto en $\QQ_{p}$ una sucesión
+  converge si y solo si es de Cauchy.
+\end{obs}
+
+\begin{prop}
+  Sea $(a_{n})$ una sucesión en $\QQ_{p}$, entonces $(a_{n})$ es de Cauchy si y solo si para todo $\varepsilon > 0$,
+  existe $N \in \NN$ tal que si $n > \NN$ entonces $d_{p}(x_{n}, x_{n + 1}) < \varepsilon$
+\end{prop}
+
+\begin{proof}
+  La implicancia de izquierda a derecha es trivial. Supongamos que se tiene lo de la derecha. Luego se $\varepsilon > 0$
+  notemos que
+  \begin{equation*}
+    |a_{n} - a_{m}|_{p} = |(a_{n} - a_{n + 1}) + (a_{n + 1} - a_{n +2}) + ... + (a_{m - 1} - a_{m})|_{p} \leq \max \{|a_{n} -a_{n + 1}|_{p}, ..., |a_{m - 1} - a_{m}|_{p}\}
+  \end{equation*}
+
+  Tomemos $N$ tal que si $n > N$ entonces $|a_{n} - a_{n + 1}|_{p} < \varepsilon$, luego cada uno de los elementos del
+  máximo es menor que $\varepsilon$ si $n, m > N$, por lo que tenemos
+  \begin{equation*}
+    |a_{n} - a_{m}|_{p} < \varepsilon
+  \end{equation*}
+\end{proof}
+\begin{adv}
+  Esto es falso en la mayoría de espacios métricos, por ejemplo considere $a_{n} = \ln(n)$ como una sucesión de $\RR$,
+  luego tenemos que
+  \begin{equation*}
+    |\ln(n) - \ln(n + 1)| = |\ln(\frac{n}{n + 1})| \to 0
+  \end{equation*}
+
+  Pero no es de Cauchy pues $\ln(n)$ no converge.
+\end{adv}
+
+\begin{prop}
+  Sea $(a_{n})$ una sucesión en $\QQ_{p}$ entonces $\sum_{n = 1}^{\infty} a_{n}$ converge si y solo si $\lim_{n \to \infty} a_{n} = 0$
+\end{prop}
+
+\begin{proof}
+  De izquierda a derecha se deja como ejercicio. De derecha a izquierda usamos la proposición $8$, sea $\varepsilon > 0$
+  dado que $\lim_{n \to \infty} a_{n} = 0$, existe $N$ tal que si $n > N$ entonces $|a_{n}|_{p} < \varepsilon$. Notemos que
+  si $n > N$ entonces
+  \begin{equation*}
+    |S_{n + 1} - S_{n}| = |a_{n + 1}| < \varepsilon
+  \end{equation*}
+
+  Por lo tanto la sucesión es de Cauchy y por tanto converge pues $\QQ_{p}$ es completo.
+\end{proof}
+\begin{adv}
+  Esto es falso en general, pues en $\RR$ la sucesión $\frac{1}{n}$ tiene por limite $0$ pero su serie no converge.
+\end{adv}
+
+\begin{prop}
+  La serie $\sum_{n = 0}^{\infty} p^{n}$ converge en $\QQ_{p}$ y su suma es $\frac{1}{1 - p}$.
+\end{prop}
+\begin{proof}
+  El hecho que converga sigue directo de la proposición $7$ y $9$. Sabemos que las sumas parciales son de la forma
+  \begin{equation*}
+    S_{n} = \frac{1 - p^{n}}{1 - p}
+  \end{equation*}
+
+  Luego tenemos que
+  \begin{equation*}
+    d(S_{n}, \frac{1}{1 - p}) = |\frac{1}{1 - p} - \frac{1 - p^{n}}{1 - p}|_{p} = |\frac{p^{n}}{1 - p}|_{p} = |p^{n}|_{p} \cdot |\frac{1}{1 - p}|_{p} = p^{-n} \cdot 1 \to 0
+  \end{equation*}
+
+  Por lo tanto converge.
+\end{proof}
+
+\begin{ejemplo}
+  Sea $p = 2$, aplicando la proposición anterior tenemos que
+  \begin{equation*}
+    \sum_{n = 0}^{1} 2^{n} = \frac{1}{1 - 2} = -1
+  \end{equation*}
+\end{ejemplo}
+
+\printbibliography
+\end{document}
